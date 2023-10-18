@@ -3,6 +3,8 @@ const inquirer = require('inquirer');
 const Circle = require('./Develop/lib/circle');  // Import the Circle class
 const Triangle = require('./Develop/lib/triangle');  // Import the triangle class
 const Square = require('./Develop/lib/square');  // Import the square class
+
+// user input goes here
 inquirer
   .prompt([
     {
@@ -32,13 +34,20 @@ inquirer
     let shape;
     // handle shape classes here
     switch (answers.shape.toLowerCase()) {
-      case 'circle':
-        shape = new Circle(answers.shapeColor);  // Use Circle class for 'circle'
+    case 'circle':
+        shape = new Circle(answers.shapeColor); 
         break;
 
+    case 'square':
+        shape = new Square(answers.shapeColor);  
+        break;
 
-      default:
-        console.log('Invalid shape choice.');
+    case 'triangle':
+        shape = new Triangle(answers.shapeColor);  
+        break;
+
+    default:
+    console.log('Invalid shape choice.');
         return;
     }
 

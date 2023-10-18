@@ -1,16 +1,16 @@
-class Circle {
+class Square {
+
     constructor(color) {
-      this.color = color;
+        this.color = color;
     }
-  
+
     render(text, textColor) {
-      // Logic to generate SVG for a circle with the provided parameters
-      const svgString = `<svg width="300" height="200">
-        <circle cx="150" cy="100" r="50" fill="${this.color}" />
-        <text x="50%" y="50%" text-anchor="middle" fill="${textColor}">${text}</text>
-      </svg>`;
-      return svgString;
+        const createSquare = `<svg width="300" height="200">
+        <rect x="90" y="40" width="120" height="120" fill="${this.color}" />
+        <text x="150" y="125" font-size="60" text-anchor="middle" fill="${textColor}">${text}</text>
+        </svg>`;
+        return createSquare;
     }
-  }
-  
-  module.exports = Circle;
+}
+
+module.exports = Square;
