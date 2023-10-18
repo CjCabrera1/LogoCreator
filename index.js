@@ -31,7 +31,6 @@ inquirer
   // handle logo creation
   .then((answers) => {
     let shape;
-
     switch (answers.shape.toLowerCase()) {
       case 'circle':
         shape = new shapes.Circle(answers.shapeColor);
@@ -49,19 +48,16 @@ inquirer
         console.log('Invalid shape choice.');
         return;
     }
-
-    // Create an SVG instance
+    shape.setColor(answers.shapeColor);
+    // Handle text in shape
     let svg = new SVG();
 
     // Set the text and text color
     svg.setText(answers.text, answers.textColor);
-
     // Set the shape
     svg.setShape(shape);
-
     // Generate the SVG logo
     const svgLogo = svg.render();
-
     // Write the SVG logo to a file
     fs.writeFileSync('logo.svg', svgLogo);
 
