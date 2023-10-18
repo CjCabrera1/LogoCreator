@@ -1,8 +1,7 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
-const Circle = require('./Develop/lib/circle');  // Import the Circle class
-const Triangle = require('./Develop/lib/triangle');  // Import the triangle class
-const Square = require('./Develop/lib/square');  // Import the square class
+const shapes = require('./Develop/lib/shapes');
+const SVG = require("./Develop/lib/svg");
 
 // user input goes here
 inquirer
@@ -29,30 +28,43 @@ inquirer
       name: 'shapeColor',
     },
   ])
-
+  // handle logo creation
   .then((answers) => {
     let shape;
-    // handle shape classes here
+
     switch (answers.shape.toLowerCase()) {
-    case 'circle':
-        shape = new Circle(answers.shapeColor); 
+      case 'circle':
+        shape = new shapes.Circle(answers.shapeColor);
         break;
 
-    case 'square':
-        shape = new Square(answers.shapeColor);  
+      case 'square':
+        shape = new shapes.Square(answers.shapeColor);
         break;
 
-    case 'triangle':
-        shape = new Triangle(answers.shapeColor);  
+      case 'triangle':
+        shape = new shapes.Triangle(answers.shapeColor);
         break;
 
-    default:
-    console.log('Invalid shape choice.');
+      default:
+        console.log('Invalid shape choice.');
         return;
     }
 
-    const svgLogo = shape.render(answers.text, answers.textColor);
+    // Create an SVG instance
+    let svg = new SVG();
+
+    // Set the text and text color
+    svg.setText(answers.text, answers.textColor);
+
+    // Set the shape
+    svg.setShape(shape);
+
+    // Generate the SVG logo
+    const svgLogo = svg.render();
+
+    // Write the SVG logo to a file
     fs.writeFileSync('logo.svg', svgLogo);
+
     console.log('Generated logo.svg');
   })
   .catch((error) => {
